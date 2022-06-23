@@ -8,21 +8,34 @@ LIB = libft/libft.a
 SERVER = server.c
 CLIENT = client.c
 
-SERVER_SRC = $(SERVER)
-SERVER_OBJ = $(SERVER_SRC:.c=.o)
-
 NAME = serv
 SERV_NAME = server
 CLIENT_NAME = client
 
+SERVER_SRC = $(SERVER)
+SERVER_OBJ = $(SERVER_SRC:.c=.o)
+
 CLIENT_SRC = $(CLIENT)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
-OBJS = $(CLIENT_OBJ) $(SERVER_OBJ)
+
+SERVER_BONUS = server_bonus.c
+CLIENT_BONUS = client_bonus.c
+
+SERV_NAME_BONUS = server_bonus
+CLIENT_NAME_BONUS = client_bonus
+
+SERVER_SRC_BONUS = $(SERVER_BONUS)
+SERVER_OBJ_BONUS = $(SERVER_SRC_BONUS:.c=.o)
+
+CLIENT_SRC_BONUS = $(CLIENT_BONUS)
+CLIENT_OBJ_BONUS = $(CLIENT_SRC_BONUS:.c=.o)
+
+OBJS = $(CLIENT_OBJ) $(SERVER_OBJ) $(CLIENT_OBJ_BONUS) $(SERVER_OBJ_BONUS)
 
 all: $(NAME)
 
-$(NAME): bibli server client
+$(NAME): bibli server client server_bonus client_bonus
 
 bibli: 
 		@$(LIBFT)
@@ -33,14 +46,19 @@ server: $(SERVER_OBJ)
 client: $(CLIENT_OBJ) bibli
 		@$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIB) -o $(CLIENT_NAME)
 
+server_bonus: $(SERVER_OBJ_BONUS)
+		@$(CC) $(CFLAGS) $(SERVER_OBJ_BONUS) $(LIB) -o $(SERV_NAME_BONUS)
+
+client_bonus: $(CLIENT_OBJ_BONUS) bibli
+		@$(CC) $(CFLAGS) $(CLIENT_OBJ_BONUS) $(LIB) -o $(CLIENT_NAME_BONUS)
 clean: 
 	$(RM) $(OBJS)
 	 cd libft && make clean
 
 fclean: 
-		$(RM) $(CLIENT_NAME) $(SERV_NAME) $(OBJS)
+		$(RM) $(CLIENT_NAME) $(SERV_NAME) $(OBJS) $(CLIENT_NAME_BONUS) $(SERV_NAME_BONUS)
 		cd libft && make fclean
 
 re: fclean all
 
-.PHONY: all server client clean fclean re bibli
+.PHONY: all server client clean fclean re bibli server_bonus client_bonus
