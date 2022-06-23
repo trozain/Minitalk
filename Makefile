@@ -38,8 +38,7 @@ clean:
 	 cd libft && make clean
 
 fclean: 
-		$(RM) $(OBJS)
-		$(RM) $(CLIENT_NAME) $(SERV_NAME)
+		$(RM) $(CLIENT_NAME) $(SERV_NAME) $(OBJS)
 		cd libft && make fclean
 
 re: fclean all

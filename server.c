@@ -6,14 +6,14 @@
 /*   By: trozain <trozain@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:51:49 by trozain           #+#    #+#             */
-/*   Updated: 2022/06/22 16:51:49 by trozain          ###   ########.fr       */
+/*   Updated: 2022/06/23 13:37:27 by trozain          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include "libft/libft.h"
 
-static void	serveur(int sig, siginfo_t *info, void *context)
+static void	serv(int sig, siginfo_t *info, void *context)
 {
 	static int				i = 0;
 	static pid_t			client_pid = 0;
@@ -23,12 +23,13 @@ static void	serveur(int sig, siginfo_t *info, void *context)
 	if (!client_pid)
 		client_pid = info->si_pid;
 	c |= (sig == SIGUSR2);
-	if (++i == 8)
+	if (i++ == 7)
 	{
 		i = 0;
 		if (!c)
 		{
 			kill(client_pid, SIGUSR2);
+			ft_putchar_fd('\n', 1);
 			client_pid = 0;
 			return ;
 		}
@@ -46,7 +47,7 @@ int	main(void)
 	struct sigaction	sa_signal;
 
 	sa_signal.sa_flags = SA_SIGINFO;
-	sa_signal.sa_sigaction = serveur;
+	sa_signal.sa_sigaction = serv;
 	sigaction(SIGUSR1, &sa_signal, NULL);
 	sigaction(SIGUSR2, &sa_signal, NULL);
 	ft_putnbr_fd(getpid(), 1);

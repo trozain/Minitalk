@@ -6,7 +6,7 @@
 /*   By: trozain <trozain@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 13:39:18 by trozain           #+#    #+#             */
-/*   Updated: 2022/01/06 20:50:08 by trozain          ###   ########.fr       */
+/*   Updated: 2022/06/23 11:34:49 by trozain          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned int	i;
 	unsigned int	s_len;
 	char			*substr;
 
@@ -34,6 +33,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		substr = (char *)ft_calloc((len + 1), sizeof(char));
 	if (substr == 0)
 		return (NULL);
-	i = ft_strlcpy(substr, (s + start), len + 1);
+	ft_strlcpy(substr, (s + start), len + 1);
 	return (substr);
 }
