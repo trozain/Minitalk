@@ -1,9 +1,13 @@
-
+# --------------------- FLAGS ----------------------------
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
+#----------------------- LIBFT -----------------------------
+
 LIBFT = cd libft && make
 LIB = libft/libft.a
+
+#------------------------ BASE -------------------------------
 
 SERVER = server.c
 CLIENT = client.c
@@ -18,6 +22,7 @@ SERVER_OBJ = $(SERVER_SRC:.c=.o)
 CLIENT_SRC = $(CLIENT)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
+#-------------------------------- BONUS -------------------------------
 
 SERVER_BONUS = server_bonus.c
 CLIENT_BONUS = client_bonus.c
@@ -31,7 +36,11 @@ SERVER_OBJ_BONUS = $(SERVER_SRC_BONUS:.c=.o)
 CLIENT_SRC_BONUS = $(CLIENT_BONUS)
 CLIENT_OBJ_BONUS = $(CLIENT_SRC_BONUS:.c=.o)
 
+#------------------------------- OBJS ----------------
+
 OBJS = $(CLIENT_OBJ) $(SERVER_OBJ) $(CLIENT_OBJ_BONUS) $(SERVER_OBJ_BONUS)
+
+#------------------------------- RULES --------------------------
 
 all: $(NAME)
 
